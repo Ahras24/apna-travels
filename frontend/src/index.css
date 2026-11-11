@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --background: 216 33% 97%;
+        --foreground: 213 50% 13%;
+        --card: 0 0% 100%;
+        --card-foreground: 213 50% 13%;
+        --popover: 0 0% 100%;
+        --popover-foreground: 213 50% 13%;
+        --primary: 213 50% 13%;
+        --primary-foreground: 0 0% 100%;
+        --secondary: 212 49% 22%;
+        --secondary-foreground: 0 0% 100%;
+        --muted: 216 33% 94%;
+        --muted-foreground: 213 13% 59%;
+        --accent: 40 61% 57%;
+        --accent-foreground: 213 50% 13%;
+        --destructive: 0 72% 51%;
+        --destructive-foreground: 0 0% 98%;
+        --border: 214 20% 86%;
+        --input: 214 20% 82%;
+        --ring: 40 61% 57%;
+        --radius: 2px;
+    }
+}
+
+@layer base {
+    * { @apply border-border; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body {
+        @apply bg-mist text-navy font-body antialiased;
+        text-rendering: optimizeLegibility;
+    }
+    h1, h2, h3, h4 { @apply font-display; }
+    ::selection { background: #D5A94F; color: #101E30; }
+}
+
+@layer components {
+    .container-x { @apply mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-12; }
+    .eyebrow { @apply inline-flex items-center gap-3 font-body text-[11px] font-semibold uppercase tracking-[0.28em]; }
+    .eyebrow::before { content: ""; @apply block h-px w-8 bg-gold; }
+    .h-display { @apply font-display font-semibold tracking-[-0.025em] leading-[1.04]; }
+    .btn-gold {
+        @apply inline-flex items-center justify-center gap-2 bg-gold px-6 py-3.5 font-body text-sm font-semibold text-navy;
+        transition: background-color .25s ease, transform .25s ease, box-shadow .25s ease;
+    }
+    .btn-gold:hover { @apply bg-gold-soft; transform: translateY(-1px); box-shadow: 0 10px 30px -10px rgba(213,169,79,.6); }
+    .btn-ghost {
+        @apply inline-flex items-center justify-center gap-2 border border-white/30 px-6 py-3.5 font-body text-sm font-semibold text-white;
+        transition: border-color .25s ease, background-color .25s ease;
+    }
+    .btn-ghost:hover { @apply border-white bg-white/5; }
+    .btn-navy {
+        @apply inline-flex items-center justify-center gap-2 bg-navy px-6 py-3.5 font-body text-sm font-semibold text-white;
+        transition: background-color .25s ease, transform .25s ease;
+    }
+    .btn-navy:hover { @apply bg-navy-2; transform: translateY(-1px); }
+    .grain::after {
+        content: ""; position: absolute; inset: 0; pointer-events: none; opacity: .06; mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+    .hairline-grid {
+        background-image: linear-gradient(to right, rgba(255,255,255,.04) 1px, transparent 1px);
+        background-size: calc(100% / 12) 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
+}

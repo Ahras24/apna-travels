@@ -1,0 +1,189 @@
+{
+  "theme": "Dark Luxury Corporate",
+  "app_type": "marketing_site",
+  "typography": {
+    "headings": {
+      "family": "Plus Jakarta Sans",
+      "weights": ["400", "600", "700", "800"],
+      "classes": "font-sans tracking-tight"
+    },
+    "body": {
+      "family": "Inter",
+      "weights": ["400", "500", "600"],
+      "classes": "font-body leading-relaxed"
+    }
+  },
+  "colors": {
+    "primary_bg": "#101E30",
+    "secondary_bg": "#1C3552",
+    "accent_gold": "#D5A94F",
+    "light_bg": "#F5F7FA",
+    "secondary_text": "#8A96A5",
+    "white": "#FFFFFF"
+  },
+  "visual_enhancers": {
+    "overlay": "bg-[#101E30]/70 to bg-[#101E30]/90 for hero overlay",
+    "glassmorphism": "Avoid excessive glassmorphism. Use solid navy (#1C3552) or subtle borders.",
+    "shadows": "Deep, layered shadows for cards on light backgrounds, subtle glow for gold accents on dark.",
+    "borders": "1px solid border-[#8A96A5]/20 or border-[#D5A94F]/30 for structure"
+  },
+  "layouts": {
+    "overall": "Alternating dark and light sections (editorial approach). Dark navy dominant.",
+    "about": "Asymmetric editorial layout. Large image alongside small supporting image, with strong typographic hierarchy.",
+    "services": "Clear separation of categories, image-supported, different compositions per service.",
+    "industries": "Large editorial image cards with hover reveals."
+  },
+  "motion": {
+    "scroll": "Smooth scroll (Lenis), scroll-triggered transitions.",
+    "entrance": "Cinematic hero entrance, image reveals with subtle scale-up, staggered count-up stats.",
+    "hover": "Hover state on services (reveals positions), industry cards lift and brighten.",
+    "accessibility": "Respect prefers-reduced-motion."
+  },
+  "3d_libraries": {
+    "globe": "react-three-fiber (R3F) or react-globe.gl. Interactive 3D globe with Gulf highlight + arcs. Destinations vs Offices distinct. Static map fallback for mobile."
+  },
+  "component_path": "/app/frontend/src/components/ui",
+  "instructions_to_main_agent": [
+    "Build out the 12 specified sections exactly in order: 01 Hero, 02 Stats, 03 About, 04 Why Choose, 05 Services, 06 Industries, 07 Process, 08 Global Presence, 09 Clients, 10 Team, 11 Contact, 12 Footer.",
+    "No generic AI layouts or excessive rounded cards. Keep radii minimal (0px-4px) for a corporate structural feel.",
+    "No unnecessary gradients. Use solid colors and high-quality photography.",
+    "Do not invent facts (no email, no social accounts, no non-provided logos).",
+    "Both Employer and Candidate forms must NOT submit via standard API, they must construct a WhatsApp message URL to +91 98210 90453 and open it in a new tab.",
+    "The Hero background must ONLY be the provided `/brand/hero.jpg` with a strong navy overlay so white text is readable.",
+    "Use white logos (`/brand/logo-white.png` & `/brand/logo-white-mark.png`) on dark sections, color logos (`/brand/logo-color.png` & `/brand/logo-color-mark.png`) on light sections.",
+    "Alternate section backgrounds between `#101E30`, `#1C3552`, and `#F5F7FA`.",
+    "Use Lucide React for icons.",
+    "Apply Framer Motion for entrance animations and the interactive timeline."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": [
+    "Do not center-align the app container. Keep natural text flow (left-aligned predominantly).",
+    "Create depth through layered z-index rather than cheap gradients.",
+    "No emoji characters for icons.",
+    "Ensure minimum 4.5:1 contrast ratio. Use Text Shadow where needed on hero images.",
+    "Ensure the header background transitions from transparent over the hero to solid navy on scroll.",
+    "Use pill-shaped or sharp modern buttons for CTAs. Gold (#D5A94F) for primary actions.",
+    "All interactive elements MUST include a data-testid attribute in kebab-case."
+  ],
+  "image_urls": [
+    {
+      "category": "hero",
+      "description": "Background image for the Hero section. Attached by user.",
+      "url": "/brand/hero.jpg"
+    },
+    {
+      "category": "logo_white",
+      "description": "White logo for dark backgrounds",
+      "url": "/brand/logo-white.png"
+    },
+    {
+      "category": "logo_color",
+      "description": "Color logo for light backgrounds",
+      "url": "/brand/logo-color.png"
+    },
+    {
+      "category": "logo_white_mark",
+      "description": "White logo mark",
+      "url": "/brand/logo-white-mark.png"
+    },
+    {
+      "category": "logo_color_mark",
+      "description": "Color logo mark",
+      "url": "/brand/logo-color-mark.png"
+    },
+    {
+      "category": "about_large",
+      "description": "Large editorial image for About section (Workers reviewing plans)",
+      "url": "https://images.unsplash.com/photo-1778074762022-c33cc42f79ae?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHw0fHxlbmdpbmVlciUyMGNvbnN0cnVjdGlvbiUyMHNpdGUlMjBwbGFufGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "about_small",
+      "description": "Small supporting image for About section (Corporate meeting)",
+      "url": "https://images.unsplash.com/photo-1758518730037-a16581a040e8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBjb3Jwb3JhdGUlMjBvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "why_choose",
+      "description": "Skill verification / trade testing feature image",
+      "url": "https://images.unsplash.com/photo-1690356107685-3725367f6f3f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxpbmR1c3RyaWFsJTIwc2tpbGwlMjB0ZXN0aW5nJTIwdHJhaW5pbmd8ZW58MHx8fHwxNzk0NDI0NTE2fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "service_skilled",
+      "description": "Skilled & Technical Manpower",
+      "url": "https://images.unsplash.com/photo-1595856898575-9d187bd32fd6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwyfHxpbmR1c3RyaWFsJTIwc2tpbGwlMjB0ZXN0aW5nJTIwdHJhaW5pbmd8ZW58MHx8fHwxNzk0NDI0NTE2fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "service_heavy_equipment",
+      "description": "Heavy Equipment Operators & Drivers",
+      "url": "https://images.unsplash.com/photo-1625451102313-c4610feca0b7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwyfHxoZWF2eSUyMGVxdWlwbWVudCUyMG9wZXJhdG9yJTIwY3JhbmV8ZW58MHx8fHwxNzk0NDI0NTE2fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "service_engineering",
+      "description": "Engineering & Management Professionals",
+      "url": "https://images.unsplash.com/photo-1632862378069-4ad0348cea4f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwyfHxlbmdpbmVlciUyMGNvbnN0cnVjdGlvbiUyMHNpdGUlMjBwbGFufGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "service_office",
+      "description": "Office & Administrative Staff",
+      "url": "https://images.unsplash.com/photo-1758518731706-be5d5230e5a5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBjb3Jwb3JhdGUlMjBvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "service_hospitality",
+      "description": "Hospitality & Catering Staff",
+      "url": "https://images.unsplash.com/photo-1622021142947-da7dedc7c39a?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBjaGVmJTIwa2l0Y2hlbiUyMGhvc3BpdGFsaXR5fGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "service_industrial",
+      "description": "Industrial, Fabrication & Construction Staff",
+      "url": "https://images.unsplash.com/photo-1698664683348-f9f35b809821?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTN8MHwxfHNlYXJjaHwxfHx3ZWxkZXIlMjBzdGVlbCUyMGZhYnJpY2F0aW9uJTIwaW5kdXN0cmlhbHxlbnwwfHx8fDE3OTQ0MjQ1MTZ8MA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "service_store",
+      "description": "Store Management & Operations",
+      "url": "https://images.unsplash.com/photo-1740914994657-f1cdffdc418e?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwyfHx3YXJlaG91c2UlMjBsb2dpc3RpY3MlMjBmb3JrbGlmdCUyMG1hbmFnZXJ8ZW58MHx8fHwxNzk0NDI0NTE2fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "service_camp",
+      "description": "Camp & Food Shop Management",
+      "url": "https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwzfHxwcm9mZXNzaW9uYWwlMjBjaGVmJTIwa2l0Y2hlbiUyMGhvc3BpdGFsaXR5fGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "industry_construction",
+      "description": "Construction & Infrastructure",
+      "url": "https://images.unsplash.com/photo-1601465208371-7b200e22b3d2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzh8MHwxfHNlYXJjaHwzfHxpbmR1c3RyaWFsJTIwY29uc3RydWN0aW9uJTIwd29ya2VycyUyME1pZGRsZSUyMEVhc3R8ZW58MHx8fHwxNzk0NDI0NTE2fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "industry_engineering",
+      "description": "Engineering & Technical",
+      "url": "https://images.unsplash.com/photo-1762146828422-50a8bd416d3c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzd8MHwxfHNlYXJjaHwxfHxlbmdpbmVlciUyMGNvbnN0cnVjdGlvbiUyMHNpdGUlMjBwbGFufGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "industry_heavy_equipment",
+      "description": "Heavy Equipment & Transportation",
+      "url": "https://images.unsplash.com/photo-1593113616591-8baf0374ad42?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2Mzl8MHwxfHNlYXJjaHwzfHxoZWF2eSUyMGVxdWlwbWVudCUyMG9wZXJhdG9yJTIwY3JhbmV8ZW58MHx8fHwxNzk0NDI0NTE2fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "industry_steel",
+      "description": "Steel, Fabrication & Industrial Operations",
+      "url": "https://images.unsplash.com/photo-1714504904786-b6732390b206?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTN8MHwxfHNlYXJjaHwzfHx3ZWxkZXIlMjBzdGVlbCUyMGZhYnJpY2F0aW9uJTIwaW5kdXN0cmlhbHxlbnwwfHx8fDE3OTQ0MjQ1MTZ8MA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "industry_hospitality",
+      "description": "Hospitality & Catering",
+      "url": "https://images.unsplash.com/photo-1572715376701-98568319fd0b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBjaGVmJTIwa2l0Y2hlbiUyMGhvc3BpdGFsaXR5fGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "industry_office",
+      "description": "Office & Business Operations",
+      "url": "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHxwcm9mZXNzaW9uYWwlMjBjb3Jwb3JhdGUlMjBvZmZpY2UlMjBtZWV0aW5nfGVufDB8fHx8MTc5NDQyNDUxNnww&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "industry_warehousing",
+      "description": "Warehousing & Store Management",
+      "url": "https://images.unsplash.com/photo-1689942010216-dc412bb1e7a9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzF8MHwxfHNlYXJjaHwzfHx3YXJlaG91c2UlMjBsb2dpc3RpY3MlMjBmb3JrbGlmdCUyMG1hbmFnZXJ8ZW58MHx8fHwxNzk0NDI0NTE2fDA&ixlib=rb-4.1.0&q=85"
+    },
+    {
+      "category": "team_placeholder",
+      "description": "Placeholder for Team photo with initials ZA",
+      "url": "https://ui-avatars.com/api/?name=ZA&background=1C3552&color=D5A94F&size=512&font-size=0.33"
+    }
+  ]
+}
