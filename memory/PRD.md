@@ -16,7 +16,10 @@ Premium "Dark Luxury Corporate" redesign of https://apnatravels.org/ (internatio
 - Backend FastAPI: POST /api/enquiries/employer, POST /api/enquiries/candidate (multipart, resume ≤5MB PDF/DOC/DOCX stored in Mongo), GET /api/resumes/{id}
 
 ## Implemented (2026-11-11)
-- Full single-page site, all 12 sections, active nav, mobile full-screen menu, count-up stats, service reveal + "Hire Manpower" prefill of employer form, bento industries, animated timeline, interactive globe, client tabs (58/9/4/4/5/3 names from live site), team placeholder, dual forms with validation → save → WhatsApp prefilled message (with ref + resume link), floating WhatsApp button, footer.
+- Full single-page site, all 12 sections, active nav, mobile full-screen menu, count-up stats, service reveal + "Hire Manpower" prefill of employer form, bento industries, animated timeline, interactive globe, client list (58/9/4/4/5/3 names from live site), team placeholder, dual forms with validation → save → WhatsApp prefilled message (with ref + resume link), floating WhatsApp button, footer.
+
+## Update (2026-11-11)
+- Clients section replaced with 6 full-width infinite marquees (one per country; fixed label left; odd rows L→R, even rows R→L; pause on hover; reduced-motion = static scrollable row). File: components/site/ClientMarquee.jsx; old Clients.jsx removed.
 
 ## Needs confirmation from client
 - Registration number: brief says B-100/BOM/PART/1000+/3/1224/1984; live site shows B-0100/BOM/PART/1000+/5/1224/84 (brief value used)

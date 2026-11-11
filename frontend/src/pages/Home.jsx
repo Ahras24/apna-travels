@@ -7,7 +7,7 @@ import { Services } from "@/components/site/Services";
 import { Industries } from "@/components/site/Industries";
 import { Process } from "@/components/site/Process";
 import { GlobalReach } from "@/components/site/GlobalReach";
-import { Clients } from "@/components/site/Clients";
+import { Clients } from "@/components/site/ClientMarquee";
 import { Team } from "@/components/site/Team";
 import { Contact } from "@/components/site/Contact";
 import { Footer, WhatsAppFloat } from "@/components/site/Footer";

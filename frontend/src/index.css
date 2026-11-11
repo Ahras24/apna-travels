@@ -68,7 +68,17 @@
     }
 }
 
+@keyframes marquee-rtl { from { transform: translate3d(0,0,0); } to { transform: translate3d(-50%,0,0); } }
+@keyframes marquee-ltr { from { transform: translate3d(-50%,0,0); } to { transform: translate3d(0,0,0); } }
+.marquee-track { animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform; }
+.marquee-rtl { animation-name: marquee-rtl; }
+.marquee-ltr { animation-name: marquee-ltr; }
+.marquee-row:hover .marquee-track { animation-play-state: paused; }
+
 @media (prefers-reduced-motion: reduce) {
+    .marquee-track { animation: none !important; }
+    .marquee-track > ul + ul { display: none; }
+    .marquee-row > div:last-child { overflow-x: auto; }
     html { scroll-behavior: auto; }
     *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
