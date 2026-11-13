@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, ShieldCheck } from "lucide-react";
-import { COMPANY, GULF_COUNTRIES } from "@/data/content";
+import { COMPANY } from "@/data/content";
 
 const EASE = [0.2, 0.7, 0.2, 1];
 
@@ -63,8 +63,8 @@ export const Hero = () => (
         <Line delay={0.5} className="text-gold">Global possibility.</Line>
       </h1>
 
-      <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:items-end">
-        <Fade delay={0.8} className="lg:col-span-6">
+      <div className="mt-10">
+        <Fade delay={0.8} className="max-w-3xl">
           <p data-testid="hero-description" className="max-w-xl text-base leading-relaxed text-white/75 md:text-lg">
             {COMPANY.description}
           </p>
@@ -72,16 +72,7 @@ export const Hero = () => (
             <a href="#contact" data-testid="hero-hire-btn" className="btn-gold">
               Hire Manpower <ArrowRight className="h-4 w-4" />
             </a>
-            <a href="#services" data-testid="hero-services-btn" className="btn-ghost">Our Services</a>
-          </div>
-        </Fade>
-
-        <Fade delay={1.05} className="lg:col-span-5 lg:col-start-8">
-          <div data-testid="hero-route" className="border-t border-white/15 pt-5">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.28em] text-gold">India → The Gulf</p>
-            <p className="mt-3 font-display text-lg font-medium leading-snug text-white/85">
-              {GULF_COUNTRIES.join(" · ")}
-            </p>
+            <a href="/services" data-testid="hero-services-btn" className="btn-ghost">Our Services</a>
           </div>
         </Fade>
       </div>

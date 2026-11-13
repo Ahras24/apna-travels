@@ -85,15 +85,26 @@ export const FormError = ({ message, dark, testId }) =>
     </div>
   ) : null;
 
-export const SuccessPanel = ({ dark, refNo, url, opened, onReset, testId }) => (
+export const SuccessPanel = ({ dark, refNo, url, opened, saved = true, saveError, onReset, testId }) => (
   <div data-testid={testId} className="py-6">
-    <CheckCircle2 className="h-10 w-10 text-gold" strokeWidth={1.5} />
-    <h4 className={`mt-5 font-display text-2xl font-semibold ${dark ? "text-white" : "text-navy"}`}>Enquiry saved — reference {refNo}</h4>
+    {saved
+      ? <CheckCircle2 className="h-10 w-10 text-gold" strokeWidth={1.5} />
+      : <AlertCircle className="h-10 w-10 text-red-500" strokeWidth={1.5} />}
+    <h4 className={`mt-5 font-display text-2xl font-semibold ${dark ? "text-white" : "text-navy"}`}>
+      {saved ? `Enquiry saved — reference ${refNo}` : "WhatsApp message ready"}
+    </h4>
     <p className={`mt-3 max-w-md text-sm leading-relaxed ${dark ? "text-white/70" : "text-navy/65"}`}>
-      {opened
-        ? "WhatsApp has opened with your details filled in. Press send in WhatsApp to deliver it to our team."
-        : "Open WhatsApp to send your details to our team."}
+      {!saved
+        ? "Your enquiry could not be saved, but you can still send your details through WhatsApp."
+        : opened
+          ? "WhatsApp has opened with your details filled in. Press send in WhatsApp to deliver it to our team."
+          : "Open WhatsApp to send your details to our team."}
     </p>
+    {!saved && saveError && (
+      <p role="alert" data-testid={`${testId}-save-error`} className="mt-4 max-w-md border-l-2 border-red-400 bg-red-50 p-3 text-sm text-red-800">
+        Save error: {saveError}
+      </p>
+    )}
     <div className="mt-7 flex flex-wrap gap-3">
       <a href={url} target="_blank" rel="noopener noreferrer" data-testid={`${testId}-whatsapp`} className="btn-gold">
         {opened ? "Open WhatsApp again" : "Open WhatsApp"} <ExternalLink className="h-4 w-4" />

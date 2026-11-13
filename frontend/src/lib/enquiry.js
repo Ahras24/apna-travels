@@ -1,7 +1,7 @@
 import axios from "axios";
 import { COMPANY } from "@/data/content";
 
-export const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
+export const API = `${process.env.REACT_APP_BACKEND_URL || ""}/api`;
 
 export const waLink = (text) => `https://wa.me/${COMPANY.whatsappNumber}${text ? `?text=${encodeURIComponent(text)}` : ""}`;
 
@@ -27,20 +27,27 @@ export const validate = (values, schema) => {
   return errors;
 };
 
-// Pre-open a tab synchronously (avoids popup blockers), then point it at WhatsApp after saving.
+const errorMessage = (e) => {
+  const detail = e?.response?.data?.detail;
+  return typeof detail === "string"
+    ? detail
+    : Array.isArray(detail)
+      ? detail.map((d) => d.msg).join(", ")
+      : "We couldn't save your enquiry. You can still send it through WhatsApp.";
+};
+
+// Pre-open synchronously to avoid popup blockers and keep WhatsApp available if saving fails.
 export const submitThenWhatsApp = async ({ request, buildMessage }) => {
   const win = window.open("", "_blank");
   try {
     const { data } = await request();
     const url = waLink(buildMessage(data));
     if (win) win.location.href = url;
-    return { data, url, opened: !!win };
+    return { data, url, opened: !!win, saved: true };
   } catch (e) {
-    if (win) win.close();
-    const detail = e?.response?.data?.detail;
-    throw new Error(
-      typeof detail === "string" ? detail : Array.isArray(detail) ? detail.map((d) => d.msg).join(", ") : "We couldn't send your enquiry. Please check your connection and try again."
-    );
+    const url = waLink(buildMessage({ saveFailed: true }));
+    if (win) win.location.href = url;
+    return { data: null, url, opened: !!win, saved: false, saveError: errorMessage(e) };
   }
 };
 

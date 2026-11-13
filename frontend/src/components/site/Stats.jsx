@@ -20,23 +20,17 @@ const CountUp = ({ to, suffix, testId }) => {
 };
 
 export const Stats = () => (
-  <section id="stats" data-testid="stats-section" className="relative bg-navy text-white">
-    <div className="container-x">
-      <dl className="grid grid-cols-2 border-t border-white/10 lg:grid-cols-4">
-        {STATS.map((s, i) => (
-          <div
-            key={s.label}
-            className={`py-12 md:py-16 ${i % 2 ? "pl-6 md:pl-10" : "pr-6"} ${i > 0 ? "lg:pl-10" : ""} ${
-              i % 2 ? "border-l border-white/10" : ""
-            } ${i === 2 ? "lg:border-l border-t lg:border-t-0 border-white/10" : ""} ${i === 3 ? "border-t lg:border-t-0" : ""}`}
-          >
-            <dd className="font-display text-5xl font-semibold tracking-tight md:text-6xl lg:text-7xl">
-              <CountUp to={s.value} suffix={s.suffix} testId={`stat-value-${i}`} />
-            </dd>
-            <dt className="mt-4 text-xs font-medium uppercase tracking-[0.22em] text-slate2">{s.label}</dt>
-          </div>
-        ))}
-      </dl>
-    </div>
-  </section>
+  <div id="stats" data-testid="stats-section" className="mt-8">
+    <dl className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {STATS.map((s, i) => (
+        <div key={s.label} className="rounded-xl bg-white p-5 md:p-6">
+          <dd className="font-display text-4xl font-semibold tracking-tight text-navy md:text-5xl">
+            <CountUp to={s.value} suffix={s.suffix} testId={`stat-value-${i}`} />
+          </dd>
+          <dt className="mt-5 text-sm font-semibold text-navy">{s.label}</dt>
+          <p className="mt-2 text-sm leading-relaxed text-navy/60">{s.description}</p>
+        </div>
+      ))}
+    </dl>
+  </div>
 );

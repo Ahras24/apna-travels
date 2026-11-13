@@ -1,84 +1,107 @@
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { CLIENTS, CLIENT_TABS } from "@/data/content";
 import { Reveal, SectionHead } from "./primitives";
 
 const MIN_PER_HALF = 14;
 
-// Repeat short lists so one half of the track always exceeds the viewport width.
 const fill = (names) => {
   const out = [];
   while (out.length < MIN_PER_HALF) out.push(...names);
   return out;
 };
 
-const Track = ({ names, half }) => (
-  <ul aria-hidden={half === 1 ? "true" : undefined} className="flex shrink-0 items-center">
-    {names.map((n, i) => (
-      <li key={`${half}-${i}`} className="flex items-center">
-        <span className="whitespace-nowrap px-6 font-display text-xl font-semibold tracking-tight text-navy transition-colors duration-300 hover:text-gold-deep md:px-9 md:text-[1.7rem]">
-          {n}
-        </span>
-        <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
-      </li>
-    ))}
-  </ul>
+const ClientTrack = ({ tab, items, duration }) => (
+  <>
+    <div
+      className="marquee-track marquee-rtl flex w-max items-center"
+      style={{ animationDuration: `${duration}s` }}
+      aria-label={`${tab.label} clients`}
+    >
+      {[0, 1].map((half) => (
+        <ul key={half} aria-hidden={half === 1 ? "true" : undefined} className="flex shrink-0 items-center">
+          {items.map((name, i) => (
+            <li key={`${half}-${i}`} className="flex items-center">
+              <span className="whitespace-nowrap px-6 font-display text-xl font-semibold tracking-tight text-navy transition-colors duration-300 hover:text-gold-deep md:px-9 md:text-[1.7rem]">
+                {name}
+              </span>
+              <span className="h-1.5 w-1.5 rotate-45 bg-gold" />
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+    <span className="pointer-events-none absolute inset-y-0 left-0 w-12 bg-[linear-gradient(90deg,#F5F7FA,rgba(245,247,250,0))] md:w-24" />
+    <span className="pointer-events-none absolute inset-y-0 right-0 w-12 bg-[linear-gradient(270deg,#F5F7FA,rgba(245,247,250,0))] md:w-24" />
+  </>
 );
 
-const Row = ({ tab, index }) => {
-  const names = CLIENTS[tab.id] || [];
+export const Clients = () => {
+  const [selected, setSelected] = useState(CLIENT_TABS[0]);
+  const names = CLIENTS[selected.id] || [];
   const items = fill(names);
-  const ltr = (index + 1) % 2 === 1; // odd rows → left-to-right, even rows → right-to-left
   const duration = Math.max(40, items.length * 3.2);
-  return (
-    <div data-testid={`clients-row-${tab.id}`} className="marquee-row group relative flex items-stretch border-b border-navy/10">
-      <div className="relative z-10 flex w-[118px] shrink-0 flex-col justify-center border-r border-navy/10 bg-mist px-4 py-6 sm:w-[170px] md:w-[230px] md:px-10">
-        <span className="text-[10px] font-semibold tracking-[0.2em] text-gold-deep">{String(index + 1).padStart(2, "0")}</span>
-        <span data-testid={`clients-label-${tab.id}`} className="mt-1 font-display text-sm font-semibold uppercase tracking-[0.14em] text-navy md:text-base">
-          {tab.label}
-        </span>
-        <span className="mt-1 text-[11px] text-navy/45">{names.length} companies</span>
-        <span className="pointer-events-none absolute inset-y-0 -right-16 w-16 bg-[linear-gradient(90deg,#F5F7FA,rgba(245,247,250,0))]" />
-      </div>
-      <div className="relative flex min-w-0 flex-1 overflow-hidden py-6 md:py-8">
-        <div
-          className={`marquee-track flex w-max ${ltr ? "marquee-ltr" : "marquee-rtl"}`}
-          style={{ animationDuration: `${duration}s` }}
-          aria-label={`${tab.label} clients: ${names.join(", ")}`}
-          role="list"
-        >
-          <Track names={items} half={0} />
-          <Track names={items} half={1} />
-        </div>
-        <span className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-[linear-gradient(270deg,#F5F7FA,rgba(245,247,250,0))]" />
-      </div>
-    </div>
-  );
-};
+  const clientCount = names.length;
 
-export const Clients = () => (
-  <section id="clients" data-testid="clients-section" className="overflow-hidden bg-mist py-24 md:py-36">
-    <div className="container-x">
-      <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+  return (
+    <section id="clients" data-testid="clients-section" className="overflow-hidden bg-mist py-20 md:py-28">
+      <div className="container-x">
         <SectionHead
-          className="lg:col-span-7"
           label="Our Clients"
           title="Trusted by Companies Across the Gulf."
           text="A selection of companies Apna Travels has supplied manpower to."
           testId="clients-heading"
         />
-        <Reveal delay={0.15} className="lg:col-span-4 lg:col-start-9">
-          <p className="text-sm leading-relaxed text-navy/55">
-            Names are shown as typographic listings, grouped by destination country as provided by the company. Hover a row to pause it.
+
+        <Reveal className="mt-10">
+          <div
+            role="tablist"
+            aria-label="Select client country"
+            data-testid="clients-country-selector"
+            className="flex flex-wrap gap-2"
+          >
+            {CLIENT_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                id={`clients-tab-${tab.id}`}
+                type="button"
+                role="tab"
+                aria-selected={selected.id === tab.id}
+                aria-controls={`clients-panel-${tab.id}`}
+                data-testid={`clients-tab-${tab.id}`}
+                onClick={() => setSelected(tab)}
+                className={`border px-4 py-2.5 text-sm font-medium transition-colors duration-300 ${
+                  selected.id === tab.id
+                    ? "border-navy bg-navy text-white"
+                    : "border-navy/15 bg-white text-navy/65 hover:border-navy/40 hover:text-navy"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+          <p className="mt-4 text-xs text-navy/50" aria-live="polite">
+            {clientCount} companies in {selected.label}
           </p>
         </Reveal>
       </div>
-    </div>
 
-    <div data-testid="clients-marquees" className="mt-16 border-t border-navy/10">
-      {CLIENT_TABS.map((t, i) => <Row key={t.id} tab={t} index={i} />)}
-    </div>
+      <div data-testid="clients-marquees" className="mt-5">
+        <motion.div
+          key={selected.id}
+          role="tabpanel"
+          id={`clients-panel-${selected.id}`}
+          aria-labelledby={`clients-tab-${selected.id}`}
+          data-testid={`clients-row-${selected.id}`}
+          className="marquee-row relative overflow-hidden border-y border-navy/10 py-8 md:py-12"
+          initial={{ opacity: 0, x: 24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+        >
+          <ClientTrack tab={selected} items={items} duration={duration} />
+        </motion.div>
+      </div>
 
-    <div className="container-x mt-8">
-      <p className="text-sm text-navy/50">…and many more.</p>
-    </div>
-  </section>
-);
+    </section>
+  );
+};

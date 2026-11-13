@@ -19,16 +19,21 @@ const PREFERRED = [...GULF_COUNTRIES, "Any Gulf country"];
 const TYPES = ["application/pdf", "application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
 const MAX = 5 * 1024 * 1024;
 
-const message = (v, d) =>
+const message = (v, d, file) =>
   [
-    `*New Candidate Enquiry* (Ref ${d.ref})`,
+    `*New Candidate Enquiry*${d.ref ? ` (Ref ${d.ref})` : ""}`,
+    d.saveFailed && "Website save failed; sending details via WhatsApp.",
     `Name: ${v.full_name}`,
     `Phone: ${v.phone}`,
     `Email: ${v.email}`,
     `Job category: ${v.category}`,
     `Experience: ${v.experience} years`,
     `Preferred country: ${v.preferred_country}`,
-    d.resume_id ? `Resume: ${resumeUrl(d.resume_id)}` : "Resume: not attached",
+    d.resume_id
+      ? `Resume: ${resumeUrl(d.resume_id)}`
+      : d.saveFailed && file
+        ? `Resume: ${file.name} (upload failed; please attach it in WhatsApp)`
+        : "Resume: not attached",
     "— Sent from apnatravels.org",
   ].join("\n");
 
@@ -90,9 +95,16 @@ export const CandidateForm = () => {
     try {
       const res = await submitThenWhatsApp({
         request: () => http.post(`${API}/enquiries/candidate`, fd),
-        buildMessage: (d) => message(v, d),
+        buildMessage: (d) => message(v, d, file),
       });
-      setState({ status: "success", ref: res.data.ref, url: res.url, opened: res.opened });
+      setState({
+        status: res.saved ? "success" : "whatsapp",
+        ref: res.data?.ref,
+        url: res.url,
+        opened: res.opened,
+        saved: res.saved,
+        saveError: res.saveError,
+      });
     } catch (err) {
       setState({ status: "error", message: err.message });
     }
@@ -110,8 +122,8 @@ export const CandidateForm = () => {
       <h3 className="mt-5 font-display text-3xl font-semibold leading-tight text-navy">Explore Job Opportunities</h3>
       <p className="mt-3 max-w-md text-sm leading-relaxed text-navy/60">Looking for work in the Gulf? Share your details and resume, and our team will contact you about suitable openings.</p>
 
-      {state.status === "success" ? (
-        <SuccessPanel refNo={state.ref} url={state.url} opened={state.opened} onReset={reset} testId="candidate-success" />
+      {state.status === "success" || state.status === "whatsapp" ? (
+        <SuccessPanel refNo={state.ref} url={state.url} opened={state.opened} saved={state.saved} saveError={state.saveError} onReset={reset} testId="candidate-success" />
       ) : (
         <form onSubmit={onSubmit} noValidate data-testid="candidate-form" className="mt-9 grid gap-5 sm:grid-cols-2">
           <TextField {...f("full_name", "Full name")} autoComplete="name" className="sm:col-span-2" />

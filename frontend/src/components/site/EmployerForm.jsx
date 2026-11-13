@@ -17,9 +17,10 @@ const SCHEMA = {
 };
 const COUNTRIES = [...GULF_COUNTRIES, "India", "Other"];
 
-const message = (v, ref) =>
+const message = (v, ref, saveFailed) =>
   [
-    `*New Employer Enquiry* (Ref ${ref})`,
+    `*New Employer Enquiry*${ref ? ` (Ref ${ref})` : ""}`,
+    saveFailed && "Website save failed; sending details via WhatsApp.",
     `Company: ${v.company_name}`,
     `Contact person: ${v.contact_person}`,
     `Country: ${v.country}`,
@@ -43,6 +44,11 @@ export const EmployerForm = () => {
       setState({ status: "idle" });
     };
     window.addEventListener("apna:prefill-employer", h);
+    const positions = window.sessionStorage.getItem("apna:prefill-employer");
+    if (positions) {
+      window.sessionStorage.removeItem("apna:prefill-employer");
+      h({ detail: { positions } });
+    }
     return () => window.removeEventListener("apna:prefill-employer", h);
   }, []);
 
@@ -61,9 +67,16 @@ export const EmployerForm = () => {
     try {
       const res = await submitThenWhatsApp({
         request: () => http.post(`${API}/enquiries/employer`, { ...v, workers: Number(v.workers) }),
-        buildMessage: (d) => message(v, d.ref),
+        buildMessage: (d) => message(v, d.ref, d.saveFailed),
       });
-      setState({ status: "success", ref: res.data.ref, url: res.url, opened: res.opened });
+      setState({
+        status: res.saved ? "success" : "whatsapp",
+        ref: res.data?.ref,
+        url: res.url,
+        opened: res.opened,
+        saved: res.saved,
+        saveError: res.saveError,
+      });
     } catch (err) {
       setState({ status: "error", message: err.message });
     }
@@ -82,8 +95,8 @@ export const EmployerForm = () => {
       <h3 className="mt-5 font-display text-3xl font-semibold leading-tight">Hire Manpower</h3>
       <p className="mt-3 max-w-md text-sm leading-relaxed text-white/65">Share your requirement and our team will get back to you with suitable, trade-tested candidates.</p>
 
-      {state.status === "success" ? (
-        <SuccessPanel dark refNo={state.ref} url={state.url} opened={state.opened} onReset={reset} testId="employer-success" />
+      {state.status === "success" || state.status === "whatsapp" ? (
+        <SuccessPanel dark refNo={state.ref} url={state.url} opened={state.opened} saved={state.saved} saveError={state.saveError} onReset={reset} testId="employer-success" />
       ) : (
         <form ref={formRef} onSubmit={onSubmit} noValidate data-testid="employer-form" className="mt-9 grid gap-5 sm:grid-cols-2">
           <TextField {...f("company_name", "Company name")} autoComplete="organization" />

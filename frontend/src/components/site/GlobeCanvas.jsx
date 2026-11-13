@@ -2,7 +2,7 @@ import { useLayoutEffect, useMemo, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 import dots from "@/data/worldDots.json";
-import { DESTINATIONS, OFFICES } from "@/data/content";
+import { DESTINATIONS, RECRUITMENT_ORIGIN } from "@/data/content";
 
 const toVec = (lat, lng, r = 1) => {
   const phi = ((90 - lat) * Math.PI) / 180;
@@ -16,7 +16,6 @@ const facing = (lat, lng) => {
   return { y: -Math.atan2(v.x, v.z), x: (lat * Math.PI) / 180 * 0.85 };
 };
 
-const HQ = OFFICES[0].cities[0];
 const GOLD = new THREE.Color("#D5A94F");
 
 const Dots = () => {
@@ -44,7 +43,7 @@ const Dots = () => {
 const Arc = ({ to, delay }) => {
   const ref = useRef();
   const { geo, count } = useMemo(() => {
-    const a = toVec(HQ.lat, HQ.lng, 1.005);
+    const a = toVec(RECRUITMENT_ORIGIN.lat, RECRUITMENT_ORIGIN.lng, 1.005);
     const b = toVec(to.lat, to.lng, 1.005);
     const mid = a.clone().add(b).multiplyScalar(0.5);
     mid.normalize().multiplyScalar(1 + a.distanceTo(b) * 0.55);
@@ -127,9 +126,6 @@ const Scene = ({ focus, drag, labelRef }) => {
       <Dots />
       {DESTINATIONS.map((d, i) => <Arc key={d.name} to={d} delay={i * 0.22} />)}
       {DESTINATIONS.map((d) => <Marker key={d.name} {...d} color="#D5A94F" size={0.014} ring active={isFocus(d)} />)}
-      {OFFICES.flatMap((o) => o.cities).map((c) => (
-        <Marker key={c.name} {...c} color={c.hq ? "#D5A94F" : "#FFFFFF"} size={c.hq ? 0.016 : 0.009} ring={c.hq} active={isFocus(c)} />
-      ))}
     </group>
   );
 };

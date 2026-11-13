@@ -11,10 +11,10 @@ export const COMPANY = {
   regNo: "B-100/BOM/PART/1000+/3/1224/1984",
   regLabel: "Government-registered Manpower Consulting Firm",
   established: 2012,
-  phone: "+91 22 4575 1697",
-  phoneHref: "tel:+912245751697",
-  whatsapp: "+91 98210 90453",
-  whatsappNumber: "919821090453",
+  phone: "+91 94963 75555",
+  phoneHref: "tel:+919496375555",
+  whatsapp: "+91 94963 75555",
+  whatsappNumber: "919496375555",
   website: "https://apnatravels.org/",
   address:
     "Ground Floor, Shop No. 4, Bldg. No. 17, Maruti Mansion, Maruti Lane, Fort, Mumbai – 400 001, India.",
@@ -26,33 +26,30 @@ export const NAV = [
   { id: "home", label: "Home" },
   { id: "about", label: "About Us" },
   { id: "industries", label: "Industries" },
+  { id: "services", label: "Our Services" },
   { id: "process", label: "Our Process" },
+  { id: "reach", label: "Global Reach" },
   { id: "clients", label: "Clients" },
 ];
 
 // Figures from the existing website — edit here to update.
 export const STATS = [
-  { value: 200, suffix: "K+", label: "Manpower Supplied" },
-  { value: 10, suffix: "+", label: "Years of Operation" },
-  { value: 5, suffix: "+", label: "Countries Served" },
-  { value: 100, suffix: "+", label: "Client Companies" },
+  { value: 10, suffix: "K+", label: "Manpower Supplied", description: "Skilled and professional talent for employers." },
+  { value: 10, suffix: "+", label: "Years of Operation", description: "Recruitment experience since 2012." },
+  { value: 5, suffix: "+", label: "Countries Served", description: "Connecting talent across international markets." },
+  { value: 100, suffix: "+", label: "Client Companies", description: "Supporting businesses across industries." },
 ];
 
 export const ABOUT = {
   paragraphs: [
-    "Apna Travels is a manpower consulting firm established in 2012, providing skilled, semi-skilled and white-collar manpower to companies in India and the Middle East.",
-    "The company specialises in front-end and back-end manpower supply, handling permanent, fixed-term and temporary recruitment from entry-level positions to managerial roles.",
-    "Through its focus on client service and the quality of talent supplied, Apna Travels has expanded its recruitment operations into international markets.",
+    "Apna Travels is a multidisciplinary manpower consultancy providing permanent, fixed-term, and temporary staffing from entry-level to management. Backed by top-tier talent and exceptional service, we support SMEs and global corporations across domestic, Middle Eastern, and North African markets.",
   ],
-  vision: "To become the link between great companies and extraordinary talent.",
-  mission: "To be the most preferred manpower consulting firm in the Middle East.",
   values: [
     { title: "Transparency", text: "The candidate and the client are aware of all the details and context of every single interaction." },
     { title: "Respect", text: "Every individual, be it the client or the candidate, is treated with mutual respect and integrity." },
     { title: "Teamwork", text: "We create synergy by ensuring all activities are carried out collaboratively." },
     { title: "Adaptability", text: "We are always open to suggestions and feedback, helping clients optimally achieve their goals." },
   ],
-  imageLarge: img("https://images.unsplash.com/photo-1778074762022-c33cc42f79ae?crop=entropy&cs=srgb&fm=jpg&q=80", 1200),
   imageSmall: img("https://images.unsplash.com/photo-1758518730037-a16581a040e8?crop=entropy&cs=srgb&fm=jpg&q=80", 700),
 };
 
@@ -157,6 +154,8 @@ export const DESTINATIONS = [
   { name: "Oman", lat: 23.6, lng: 58.4 },
   { name: "Kuwait", lat: 29.4, lng: 47.98 },
 ];
+
+export const RECRUITMENT_ORIGIN = { lat: 19.07, lng: 72.88 };
 
 // Office / branch presence as listed on the existing website
 export const OFFICES = [

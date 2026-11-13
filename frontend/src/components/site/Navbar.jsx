@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, Menu, X } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { NAV, COMPANY } from "@/data/content";
+import { waLink } from "@/lib/enquiry";
 import { Logo } from "./primitives";
 
 const useActiveSection = (ids) => {
@@ -17,14 +19,18 @@ const useActiveSection = (ids) => {
   return active;
 };
 
-const ALL = ["home", "about", "why", "services", "industries", "process", "reach", "clients", "team", "contact"];
-const MAP = { why: "about", services: "about", reach: "process", team: "clients" };
+const ALL = ["home", "about", "why", "industries", "process", "reach", "clients", "team", "contact"];
+const MAP = { why: "about", team: "clients" };
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const { pathname } = useLocation();
   const raw = useActiveSection(ALL);
-  const active = MAP[raw] || raw;
+  const active = pathname === "/services" ? "services" : MAP[raw] || raw;
+  const compact = scrolled || pathname !== "/";
+  const homeHref = (id) => pathname === "/" ? `#${id}` : `/#${id}`;
+  const navHref = (id) => id === "services" ? "/services" : homeHref(id);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -39,20 +45,22 @@ export const Navbar = () => {
     <header
       data-testid="site-header"
       className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,padding] duration-500 ${
-        scrolled ? "border-b border-white/10 bg-navy/95 py-3 backdrop-blur-md" : "border-b border-transparent bg-transparent py-6"
+        compact
+          ? `border-b border-white/10 bg-navy/95 py-4 lg:py-3.5 xl:py-3 ${open ? "" : "backdrop-blur-md"}`
+          : "border-b border-transparent bg-transparent py-7 lg:py-8 xl:py-7"
       }`}
     >
       <div className="container-x flex items-center justify-between gap-6">
-        <a href="#home" data-testid="nav-logo-link" aria-label="Apna Travels home">
-          <Logo className={`transition-[height] duration-500 ${scrolled ? "h-8" : "h-9 sm:h-10"}`} />
+        <a href={homeHref("home")} data-testid="nav-logo-link" aria-label="Apna Travels home">
+          <Logo variant="updated" className="w-[150px] transition-[width] duration-500 sm:w-[170px] lg:w-[190px] xl:w-[205px]" />
         </a>
 
-        <nav aria-label="Primary" className="hidden lg:block">
-          <ul className="flex items-center gap-1">
+        <nav aria-label="Primary" className="hidden lg:ml-auto lg:block">
+          <ul className="flex items-center gap-1 lg:mr-5">
             {NAV.map((n) => (
               <li key={n.id}>
                 <a
-                  href={`#${n.id}`}
+                  href={navHref(n.id)}
                   data-testid={`nav-link-${n.id}`}
                   aria-current={active === n.id ? "true" : undefined}
                   className={`group relative px-4 py-2 text-[13px] font-medium tracking-wide transition-colors duration-300 ${
@@ -72,8 +80,21 @@ export const Navbar = () => {
         </nav>
 
         <div className="flex items-center gap-3">
-          <a href="#contact" data-testid="nav-contact-btn" className="btn-gold hidden !py-2.5 !px-5 sm:inline-flex">
+          <a href={homeHref("contact")} data-testid="nav-contact-btn" className="btn-gold hidden !py-2.5 !px-5 sm:inline-flex">
             Contact Us <ArrowUpRight className="h-4 w-4" />
+          </a>
+          <a
+            href={waLink("Hello Apna Travels, I would like to know more about your manpower services.")}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Chat on WhatsApp ${COMPANY.whatsapp}`}
+            title="Chat on WhatsApp"
+            data-testid="nav-whatsapp-btn"
+            className="grid h-11 w-11 shrink-0 place-items-center text-[#25D366] transition-transform hover:-translate-y-0.5"
+          >
+            <svg viewBox="0 0 24 24" className="h-6 w-6 fill-current" aria-hidden="true">
+              <path d="M20.52 3.48A11.86 11.86 0 0 0 12.06 0C5.46 0 .09 5.37.09 11.97c0 2.11.55 4.17 1.6 5.99L0 24l6.2-1.63a11.97 11.97 0 0 0 5.86 1.49h.01c6.6 0 11.97-5.37 11.97-11.97 0-3.2-1.25-6.21-3.52-8.41ZM12.07 21.8h-.01a9.9 9.9 0 0 1-5.04-1.38l-.36-.21-3.68.97.98-3.59-.23-.37a9.86 9.86 0 0 1-1.52-5.25c0-5.45 4.43-9.88 9.88-9.88a9.8 9.8 0 0 1 6.99 2.9 9.8 9.8 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.9 9.88Zm5.42-7.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48 0 1.46 1.07 2.88 1.21 3.07.15.2 2.1 3.2 5.08 4.49.71.3 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35Z" />
+            </svg>
           </a>
           <button
             type="button"
@@ -108,7 +129,7 @@ export const Navbar = () => {
                   className="border-b border-white/10"
                 >
                   <a
-                    href={`#${n.id}`}
+                    href={navHref(n.id)}
                     onClick={() => setOpen(false)}
                     data-testid={`mobile-nav-link-${n.id}`}
                     className="flex items-baseline justify-between py-5 font-display text-3xl font-semibold text-white"

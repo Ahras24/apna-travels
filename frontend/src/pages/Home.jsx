@@ -1,16 +1,14 @@
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
-import { Stats } from "@/components/site/Stats";
 import { About } from "@/components/site/About";
 import { WhyUs } from "@/components/site/WhyUs";
-import { Services } from "@/components/site/Services";
 import { Industries } from "@/components/site/Industries";
 import { Process } from "@/components/site/Process";
 import { GlobalReach } from "@/components/site/GlobalReach";
 import { Clients } from "@/components/site/ClientMarquee";
 import { Team } from "@/components/site/Team";
 import { Contact } from "@/components/site/Contact";
-import { Footer, WhatsAppFloat } from "@/components/site/Footer";
+import { Footer } from "@/components/site/Footer";
 
 export default function Home() {
   return (
@@ -21,10 +19,8 @@ export default function Home() {
       <Navbar />
       <main id="main">
         <Hero />
-        <Stats />
         <About />
         <WhyUs />
-        <Services />
         <Industries />
         <Process />
         <GlobalReach />
@@ -33,7 +29,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-      <WhatsAppFloat />
     </>
   );
 }

@@ -1,4 +1,4 @@
-import { MapPin, Phone, MessageCircle, Globe2 } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Download } from "lucide-react";
 import { COMPANY } from "@/data/content";
 import { waLink } from "@/lib/enquiry";
 import { Reveal, SectionHead } from "./primitives";
@@ -24,7 +24,7 @@ export const Contact = () => (
         testId="contact-heading"
       />
 
-      <Reveal className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <Reveal className="mt-14 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         <Info icon={MapPin} label="Mumbai Head Office" testId="contact-address">{COMPANY.address}</Info>
         <Info icon={Phone} label="Phone" testId="contact-phone">
           <a href={COMPANY.phoneHref} data-testid="contact-phone-link" className="font-semibold hover:text-gold-deep">{COMPANY.phone}</a>
@@ -32,12 +32,16 @@ export const Contact = () => (
         <Info icon={MessageCircle} label="WhatsApp" testId="contact-whatsapp">
           <a href={waLink()} target="_blank" rel="noopener noreferrer" data-testid="contact-whatsapp-link" className="font-semibold hover:text-gold-deep">{COMPANY.whatsapp}</a>
         </Info>
-        <Info icon={Globe2} label="Branches" testId="contact-branches">
-          <p><span className="text-navy/55">India:</span> Lucknow · Gorakhpur · Jaipur · Patna · Delhi</p>
-          <p><span className="text-navy/55">Saudi Arabia:</span> Riyadh · Dammam</p>
-          <p><span className="text-navy/55">Also:</span> UAE · Nepal</p>
-        </Info>
       </Reveal>
+
+      <a
+        href="/brand/business-card.jpeg"
+        download="Apna-Travels-Business-Card.jpeg"
+        data-testid="download-business-card"
+        className="btn-navy mt-8"
+      >
+        Download Business Card <Download className="h-4 w-4" />
+      </a>
 
       <div className="mt-16 grid gap-6 lg:grid-cols-2">
         <Reveal className="h-full"><EmployerForm /></Reveal>

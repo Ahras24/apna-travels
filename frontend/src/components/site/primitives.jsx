@@ -1,4 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
+import { COMPANY } from "@/data/content";
 
 const EASE = [0.2, 0.7, 0.2, 1];
 
@@ -65,12 +66,21 @@ export const SectionHead = ({ label, title, text, dark = false, className = "", 
 );
 
 export const Logo = ({ variant = "white", className = "h-9", testId = "brand-logo" }) => (
-  <img
-    data-testid={testId}
-    src={`/brand/logo-${variant}.png`}
-    alt="Apna Travels — Your New Life Begins"
-    className={`w-auto select-none ${className}`}
-    width="896"
-    height="193"
-  />
+  <span className="relative inline-block shrink-0 align-top">
+    <img
+      data-testid={testId}
+      src={variant === "updated" ? "/brand/logo-navbar.png" : `/brand/logo-${variant}.png`}
+      alt={variant === "updated"
+        ? "Apna Travels — Your New Life Begins"
+        : "Apna Travels — Your New Life Begins"}
+      className={`block select-none ${variant === "updated" ? className : `w-auto ${className}`}`}
+      width="896"
+      height="193"
+    />
+    {variant !== "updated" && (
+      <span className="absolute left-[21.875%] top-full mt-1 w-[64.174%] whitespace-nowrap text-center text-[6px] font-medium leading-tight tracking-[0.04em] text-white/75">
+        Regn. No.: {COMPANY.regNo}
+      </span>
+    )}
+  </span>
 );

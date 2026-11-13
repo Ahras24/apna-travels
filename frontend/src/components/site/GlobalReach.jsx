@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
-import { Building2, MapPin } from "lucide-react";
-import { DESTINATIONS, OFFICES } from "@/data/content";
+import { MapPin } from "lucide-react";
+import { DESTINATIONS } from "@/data/content";
 import { Reveal, SectionHead } from "./primitives";
 import { StaticMap } from "./StaticMap";
 
@@ -51,7 +51,7 @@ export const GlobalReach = () => {
           dark
           label="Our Global Reach"
           title="Connecting Talent Across Borders."
-          text="Apna Travels supplies manpower to employers across the Gulf, supported by its presence in India, Nepal and Saudi Arabia."
+          text="We connect skilled professionals from India with employers across the Gulf and other international markets."
           testId="reach-heading"
         />
 
@@ -73,12 +73,11 @@ export const GlobalReach = () => {
             </div>
             <div className="mt-4 flex flex-wrap gap-6 text-xs text-slate2">
               <span className="flex items-center gap-2"><span className="h-2 w-2 rounded-full border border-gold" /> Recruitment destination</span>
-              <span className="flex items-center gap-2"><span className="h-2 w-2 bg-white/80" /> Office / branch</span>
               {three && <span className="hidden md:inline">Drag to rotate · hover a location to focus</span>}
             </div>
           </div>
 
-          <div className="space-y-12 lg:col-span-5">
+          <div className="lg:col-span-5">
             <Reveal>
               <h3 className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-gold">
                 <MapPin className="h-4 w-4" /> Recruitment destinations
@@ -88,23 +87,6 @@ export const GlobalReach = () => {
                   <Item key={d.name} label={d.name} active={focus.name === d.name} onEnter={() => setFocus(d)} testId={`destination-${d.name.toLowerCase().replace(/\s+/g, "-")}`} />
                 ))}
               </ul>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <h3 className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.28em] text-gold">
-                <Building2 className="h-4 w-4" /> Offices &amp; branches
-              </h3>
-              <div className="mt-4 space-y-6" data-testid="offices-list">
-                {OFFICES.map((o) => (
-                  <div key={o.country}>
-                    <p className="text-xs font-medium uppercase tracking-[0.2em] text-slate2">{o.country}</p>
-                    <ul className="mt-1 grid grid-cols-1 sm:grid-cols-2 sm:gap-x-8">
-                      {o.cities.map((c) => (
-                        <Item key={c.name} square label={c.name} sub={c.note} active={focus.name === c.name} onEnter={() => setFocus(c)} testId={`office-${c.name.toLowerCase()}`} />
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
             </Reveal>
           </div>
         </div>
